@@ -6,6 +6,7 @@ import re
 
 import logging
 
+
 @dataclass
 class Garage:
     """Class for garages Burgos"""
@@ -20,11 +21,14 @@ class Garage:
 
     @staticmethod
     def from_json(item):
+        free_space = int(item["free_space"])
+        total_capacity = int(item["total_space"])
+        free_percentage = free_space / total_capacity
         return Garage(
             name=fix_encoding(item["name"]),
-            state="Available",
-            free_space=int(item["free_space"]),
-            total_capacity=int(item["total_space"]),
+            state="Available" if free_percentage > 0.1 else "Complete",
+            free_space=free_space,
+            total_capacity=total_capacity,
         )
 
 
@@ -39,7 +43,7 @@ async def get_garages(session: ClientSession, *, source=DEFAULT_SOURCE):
     """Fetch parking garage data."""
     try:
         response = await session.get(source.URL)
-        html = await response.text(encoding='latin-1') # iso-8859-1 latin-1
+        html = await response.text(encoding='latin-1')
         bs = BeautifulSoup(html, features='lxml')
         rows = bs.find_all('tr')
         results = []
