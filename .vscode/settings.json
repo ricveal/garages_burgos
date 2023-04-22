@@ -1,5 +1,4 @@
 {
-  "python.pythonPath": "/Users/rvalonso/Library/Caches/pypoetry/virtualenvs/garages-burgos-Nc4skf_I-py3.9/bin/python",
   "python.formatting.provider": "black",
   "python.linting.flake8Enabled": true,
   "python.linting.enabled": true,
