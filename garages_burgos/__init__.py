@@ -1,10 +1,8 @@
 """Fetch latest parking garage information from Burgos."""
 import logging
-import re
 from dataclasses import dataclass
 
 from aiohttp import ClientSession
-from bs4 import BeautifulSoup
 
 
 @dataclass
